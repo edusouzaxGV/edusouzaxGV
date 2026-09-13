@@ -15,11 +15,11 @@ control I build exists because something failed first and cost me money.
 
 ### Published work
 
-Thirteen libraries extracted from that stack, plus the studio site. Every one
+Fourteen libraries extracted from that stack, plus the studio site. Every one
 ships tests, CI across Linux/macOS/Windows, and a `PROVENANCE.md` stating what
 was extracted, what was deliberately left behind, and how it was built.
 
-**3,398 tests. Zero runtime dependencies in the core of every library.**
+**3,580 tests. Zero runtime dependencies in the core of every library.**
 
 #### Agent reliability
 
@@ -27,6 +27,7 @@ was extracted, what was deliberately left behind, and how it was built.
 |---|---|---:|
 | [agent-gates](https://github.com/edusouzaxGV/agent-gates) | Preconditions enforced in code that refuses the tool call, not reminded in a prompt. Fail-closed by default. | 184 |
 | [error-registry](https://github.com/edusouzaxGV/error-registry) | Institutional memory of mistakes, plus the gate that makes it binding. Append-only, similarity lookup, acknowledgement receipts. | 381 |
+| [deputy](https://github.com/edusouzaxGV/deputy) | Bounded delegation: reserved zones no consensus can unlock, a quorum where a silent predictor is a broken dependency and never a cautious vote, and a journal that makes a dead mechanism visible. | 130 |
 | [durable-context](https://github.com/edusouzaxGV/durable-context) | State that survives conversation compaction, distilled by a pre-compaction trigger so nothing depends on the agent remembering. | 118 |
 
 #### Multi-model decision systems
@@ -42,7 +43,7 @@ was extracted, what was deliberately left behind, and how it was built.
 |---|---|---:|
 | [spend-guard](https://github.com/edusouzaxGV/spend-guard) | Budget ceilings that fail closed. An unknown price blocks instead of passing as free; a crash between reserve and commit does not leak the reservation. | 365 |
 | [gpu-spot-guard](https://github.com/edusouzaxGV/gpu-spot-guard) | Reclaims rented GPUs that are idle, expired or unaccounted for. Ledger-based, dry-run by default. | 32 |
-| [lane-router](https://github.com/edusouzaxGV/lane-router) | Cost-aware routing to the strongest open model per vendor, with a multi-tier fallback chain, per-call receipts and an honest cost ledger. | 147 |
+| [lane-router](https://github.com/edusouzaxGV/lane-router) | Cost-aware routing to the strongest open model per vendor, with a multi-tier fallback chain, per-call receipts and an honest cost ledger. | 199 |
 
 #### Infrastructure and media
 
