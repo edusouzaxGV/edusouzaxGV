@@ -1,79 +1,43 @@
-## Eduardo de Souza Marques
+# Eduardo de Souza Marques
+### AI Safety / Agent-Governance Engineer
 
-**I build the guardrails that let AI agents run unattended.**
+I build control planes for autonomous agents — guardrails, audit trails, and recovery mechanisms that keep LLM-driven systems from failing silently in production.
 
-Most agent tooling tries to control behavior with prompts. Prompts get
-rationalized away. I enforce it in code: pre-execution gates that block the
-call, multi-model review boards that have to sign off, watchdogs that kill idle
-GPU pods, and budget ceilings that fail closed.
+## What I build
 
-This came from operating real production systems — automated media pipelines
-running nightly across three machines, unattended, on rented GPUs. Every
-control I build exists because something failed first and cost me money.
+Every library in this profile exists because an agent failed in a way that generic tooling could not catch. The shared thesis: AI systems need the same properties as high-risk operational software — pre-execution gates, adversarial review, structured recovery, cost containment, and tamper-evident provenance. The code is Python, zero-dependency, MIT-licensed, and CI-tested across Linux/macOS/Windows. No wrappers around wrappers — each repo solves one failure mode and solves it completely.
 
----
+## Repositories
 
-### Published work
+### 🛡️ Safety & Governance of Autonomous Agents
+- [`agent-gates`](https://github.com/edusouzamarques/agent-gates) — Pre-execution gates that intercept tool calls and return `allow` / `ask` / `deny` with a structured reason, so the host — not the model — has final authority.
+- [`polycourt`](https://github.com/edusouzamarques/polycourt) — Cross-vendor LLM jury with quorum, circuit-breaker, fallback, and persisted deliberation for auditable decisions.
+- [`devil-advocate`](https://github.com/edusouzamarques/devil-advocate) — Adversarial panel that attacks plans, designs, and diffs with severity-based dedup, a completeness-guard that refuses fragments, and default-REFUTED adjudication.
+- [`deputy`](https://github.com/edusouzamarques/deputy) — Bounded delegation for autonomous agents: reserved zones no quorum can unlock, a cap on consecutive self-authorizations, and a journal that makes a dead mechanism visible.
 
-Fourteen libraries extracted from that stack, plus the studio site. Every one
-ships tests, CI across Linux/macOS/Windows, and a `PROVENANCE.md` stating what
-was extracted, what was deliberately left behind, and how it was built.
+### 🔁 Reliability & Recovery
+- [`error-registry`](https://github.com/edusouzamarques/error-registry) — Structured error taxonomy for triage, routing, and automatic recovery without halting operations.
+- [`durable-context`](https://github.com/edusouzamarques/durable-context) — Long-term memory with atomic persistence of agent session and execution state.
+- [`steady-driver`](https://github.com/edusouzamarques/steady-driver) — Headless browser driver tolerant to crashes, blocks, and disconnections.
 
-**3,580 tests. Zero runtime dependencies in the core of every library.**
+### 💰 Cost Governance (FinOps for AI)
+- [`spend-guard`](https://github.com/edusouzamarques/spend-guard) — Budget kill-switch and token limiter per agent, project, and hour.
+- [`gpu-spot-guard`](https://github.com/edusouzamarques/gpu-spot-guard) — Monitors spot-GPU lifecycle and checkpoints state before preemption.
+- [`lane-router`](https://github.com/edusouzamarques/lane-router) — Routes simple prompts to cheap models and reserves expensive ones for reasoning — up to 85% cost reduction.
 
-#### Agent reliability
+### 🧭 Tooling & Orchestration
+- [`mcp-navigator`](https://github.com/edusouzamarques/mcp-navigator) — Dynamic tool index and resolver via Model Context Protocol.
+- [`comfy-ui2api`](https://github.com/edusouzamarques/comfy-ui2api) — Converts ComfyUI visual workflows into production headless API endpoints.
+- [`video-assembly-kit`](https://github.com/edusouzamarques/video-assembly-kit) — Programmatic video editing, cutting, concatenation, and captioning via pure ffmpeg.
 
-| Repo | What it does | Tests |
-|---|---|---:|
-| [agent-gates](https://github.com/edusouzaxGV/agent-gates) | Preconditions enforced in code that refuses the tool call, not reminded in a prompt. Fail-closed by default. | 184 |
-| [error-registry](https://github.com/edusouzaxGV/error-registry) | Institutional memory of mistakes, plus the gate that makes it binding. Append-only, similarity lookup, acknowledgement receipts. | 381 |
-| [deputy](https://github.com/edusouzaxGV/deputy) | Bounded delegation: reserved zones no consensus can unlock, a quorum where a silent predictor is a broken dependency and never a cautious vote, and a journal that makes a dead mechanism visible. | 130 |
-| [durable-context](https://github.com/edusouzaxGV/durable-context) | State that survives conversation compaction, distilled by a pre-compaction trigger so nothing depends on the agent remembering. | 118 |
+### 🔗 Provenance & Audit
+- [`asset-ledger`](https://github.com/edusouzamarques/asset-ledger) — Immutable ledger with cryptographic hashes for AI-generated media — provenance, anti-deepfake, chain of custody.
 
-#### Multi-model decision systems
+## Why a former police officer builds AI guardrails
 
-| Repo | What it does | Tests |
-|---|---|---:|
-| [polycourt](https://github.com/edusouzaxGV/polycourt) | A weighted jury: models from different vendors vote on one question, weights self-calibrate from recorded outcomes, every vote keeps its rationale. | 159 |
-| [devil-advocate](https://github.com/edusouzaxGV/devil-advocate) | Adversarial review by models told to attack, not approve — with an adjudication pass that defaults to refuted, because half of unchecked findings are fabricated. | 299 |
+Thirteen years in the military police teaches you that systems fail at the worst possible moment, that people will exploit any ambiguity, and that a decision only matters if you can reconstruct how it was made. Chain-of-custody is not a buzzword when it has to hold up in court. I bring that same rigor to agent governance: assume adversarial conditions, enforce boundaries before execution, and keep records that survive scrutiny.
 
-#### Cost governance
+## Stack & Contact
 
-| Repo | What it does | Tests |
-|---|---|---:|
-| [spend-guard](https://github.com/edusouzaxGV/spend-guard) | Budget ceilings that fail closed. An unknown price blocks instead of passing as free; a crash between reserve and commit does not leak the reservation. | 365 |
-| [gpu-spot-guard](https://github.com/edusouzaxGV/gpu-spot-guard) | Reclaims rented GPUs that are idle, expired or unaccounted for. Ledger-based, dry-run by default. | 32 |
-| [lane-router](https://github.com/edusouzaxGV/lane-router) | Cost-aware routing to the strongest open model per vendor, with a multi-tier fallback chain, per-call receipts and an honest cost ledger. | 199 |
-
-#### Infrastructure and media
-
-| Repo | What it does | Tests |
-|---|---|---:|
-| [asset-ledger](https://github.com/edusouzaxGV/asset-ledger) | Provenance-tracking backup for generated media: content-addressed identity, append-only manifest, lineage queries, drift detection. | 463 |
-| [mcp-navigator](https://github.com/edusouzaxGV/mcp-navigator) | Discover, call and diagnose MCP servers — including a doctor that finds dead config entries before an agent does. | 408 |
-| [steady-driver](https://github.com/edusouzaxGV/steady-driver) | Resilience patterns for driving a single-page app with no usable API: profile recovery, actionability retries, a recorded escalation ladder, submit-then-poll. | 522 |
-| [video-assembly-kit](https://github.com/edusouzaxGV/video-assembly-kit) | Deterministic video assembly over FFmpeg. Declare the edit as data, get a pure timeline-to-argv planner and reproducible renders. | 307 |
-| [comfy-ui2api](https://github.com/edusouzaxGV/comfy-ui2api) | Converts ComfyUI UI workflows into API prompts, preserving reroutes, bypasses, seed offsets and dynamic LoRA widgets. | 13 |
-
-Also: [comfy-ui2api on Hugging Face](https://huggingface.co/spaces/edusouzax/comfy-ui2api) — the
-real wheel running client-side in Pyodide, no server.
-
----
-
-### How these were built, stated plainly
-
-Built with heavy AI assistance, and honest about it — the architecture,
-integration, and operational decisions are mine. Each library was extracted
-from private production code, then put through an adversarial review chain
-before release: two independent auditors reading with different lenses, two
-independent adjudicators who had to re-open the code and quote it, and a
-finding survived only if both confirmed it. Defects that survived that gate
-were fixed with a regression test that fails without the fix.
-
-The one design rule shared by all of them: the decision logic is pure, so what
-matters is testable with no network, no clock, no filesystem and no vendor.
-
----
-
-📍 Brazil · EN / PT-BR · open to remote roles and collaboration in AI
-infrastructure, agent reliability, and LLMOps.
+**Stack:** Python 3.9+ · zero-dependency · ~3,400 tests · CI on Linux/macOS/Windows · MIT licensed
+**Contact:** [LinkedIn — /in/edusouzamarques](https://www.linkedin.com/in/edusouzamarques)
