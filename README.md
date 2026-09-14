@@ -40,4 +40,4 @@ Thirteen years in the military police teaches you that systems fail at the worst
 ## Stack & Contact
 
 **Stack:** Python 3.9+ · zero-dependency · ~3,400 tests · CI on Linux/macOS/Windows · MIT licensed
-**Contact:** [LinkedIn — /in/edusouzamarques](https://www.linkedin.com/in/edusouzamarques)
+**Contact:** [LinkedIn — /in/edusouzamarques](https://www.linkedin.com/in/edusouzamarques) · eduardo@zemark.dev
